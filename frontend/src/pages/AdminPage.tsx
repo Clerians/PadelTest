@@ -1,14 +1,27 @@
-//import { useAuth } from "../context/AuthContext";
+// src/pages/AdminPage.tsx
+import "../styles/AdminPage.css";
+import BottomNav from "../components/BottomNav";
 
 export const AdminPage = () => {
-  //const { usuario, logout } = useAuth();
-  const { email } =  JSON.parse( localStorage.getItem('userInfo')||'');
+  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+  const nombre = userInfo.name || "Administrador";
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Panel de Administración</h1>
-      <p>Bienvenido, {email}</p>
-      <button onClick={undefined}>Cerrar sesión</button>
-    </div>
+    <>
+      <div className="admin-container">
+        <h2 className="admin-welcome">
+          Hola <span className="admin-name">{nombre}</span>
+        </h2>
+
+        <div className="admin-grid">
+          <button className="admin-card deportes">Pagos</button>
+          <button className="admin-card clubes">Canchas</button>
+          <button className="admin-card escuelas">Reservas</button>
+          <button className="admin-card match">Equipamiento</button>
+        </div>
+      </div>
+
+      <BottomNav isAdmin={true} />
+    </>
   );
 };
