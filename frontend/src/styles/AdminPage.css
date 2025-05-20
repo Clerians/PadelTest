@@ -1,6 +1,8 @@
+/* AdminPage.css */
+
 /* Contenedor principal */
 .admin-container {
-  padding: 2rem;
+  padding: 2rem 1rem;
   padding-bottom: 100px; /* espacio para el BottomNav */
   text-align: center;
   background-color: #f5f5f5;
@@ -18,30 +20,32 @@
   color: #6b46c1;
 }
 
-/* Grid de botones */
+/* Grid de botones ajustado */
 .admin-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  justify-items: center;
-  padding: 0 1rem;
+  gap: 0.75rem; /* reducido el espacio entre botones */
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
-/* Tarjetas estilo botón */
+/* Botones */
 .admin-card {
   width: 100%;
-  max-width: 180px;
-  height: 100px;
-  border-radius: 12px;
+  max-width: 160px;
+  height: 90px;
+  border-radius: 10px;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: white;
   border: none;
   cursor: pointer;
   transition: transform 0.2s, background-color 0.3s;
 }
 
-/* Efecto al hacer hover/click */
+/* Hover y click */
 .admin-card:hover {
   transform: scale(1.05);
 }
@@ -50,7 +54,7 @@
   filter: brightness(85%);
 }
 
-/* Colores personalizados por tipo */
+/* Colores */
 .deportes {
   background-color: #3b82f6; /* azul */
 }
@@ -66,4 +70,3 @@
 .match {
   background-color: #6b7280; /* gris */
 }
-
