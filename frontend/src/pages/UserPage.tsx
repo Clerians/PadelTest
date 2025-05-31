@@ -1,14 +1,23 @@
+// src/pages/UserPage.tsx
 //import { useAuth } from "../context/AuthContext";
 
+import "../styles/UserPage.css";
+import BottomNav from "../components/BottomNav";
+
 export const UserPage = () => {
-  //const { usuario, logout } = useAuth();
-  const { email } =  JSON.parse( localStorage.getItem('userInfo')||'')
+  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+  const nombre = userInfo.name || "Usuario";
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>Bienvenido Socio</h1>
-      <p>Correo: {email}</p>
-      <button onClick={undefined}>Cerrar sesión</button>
-    </div>
+    <>
+      <div className="user-container">
+        <h2 className="user-welcome">
+          Hola <span className="user-name">{nombre}</span>
+        </h2>
+      </div>
+
+      <BottomNav isAdmin={false} />
+    </>
   );
 };
+
