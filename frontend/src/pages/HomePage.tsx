@@ -2,6 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/HomePage.css';
+//import BottomNav from "../components/BottomNav";
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();

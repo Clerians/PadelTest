@@ -12,7 +12,7 @@ const BottomNav = ({ isAdmin = false }: BottomNavProps) => {
 
   return (
     <div className="bottom-nav">
-      <div onClick={() => navigate("/home")} className="nav-item">
+      <div onClick={() => navigate("/")} className="nav-item">
         <FaHome />
         <span>Inicio</span>
       </div>

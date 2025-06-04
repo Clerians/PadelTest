@@ -1,37 +1,49 @@
-//authService.ts original
-const API_URL = "http://localhost:3000";
+//authService.ts sin back, mock
+// src/services/authService.ts
 
 type LoginResponse = {
   id: string;
   role: "admin" | "user";
   email: string;
-  name: string
+  name: string;
 };
 
+// Creamos un tipo extendido solo para uso interno del mock
+type MockUser = LoginResponse & { password: string };
+
 const login = async (email: string, password: string): Promise<LoginResponse> => {
-  const response = await fetch(`${API_URL}/auth/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  await new Promise((resolve) => setTimeout(resolve, 500)); // Simula latencia
+
+  const mockUsers: MockUser[] = [
+    {
+      id: "1",
+      email: "admin@ucenin.cl",
+      password: "admin123",
+      name: "Administrador",
+      role: "admin"
     },
-    body: JSON.stringify({
-      email: email,
-      password: password
-    }),
-    credentials: 'include'
-  })
+    {
+      id: "2",
+      email: "user@ucenin.cl",
+      password: "user123",
+      name: "Usuario",
+      role: "user"
+    }
+  ];
 
-  
-  const data = await response.json()
+  const user = mockUsers.find(
+    (u) => u.email === email && u.password === password
+  );
 
-  if(response.ok) {
-    return data
+  if (!user) {
+    throw new Error("Credenciales inválidas");
   }
 
-  throw new Error(data.message)
-
-}
+  // Retornamos solo los campos que están en LoginResponse
+  const { password: _, ...userData } = user;
+  return userData;
+};
 
 export const authService = {
   login
-}
+};
