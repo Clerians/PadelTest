@@ -8,28 +8,29 @@ type LoginResponse = {
   name: string;
 };
 
-// Creamos un tipo extendido solo para uso interno del mock
+// Tipo interno para simular usuarios con contraseña
 type MockUser = LoginResponse & { password: string };
+
+// Simulamos una base de datos en memoria (solo durante ejecución)
+const mockUsers: MockUser[] = [
+  {
+    id: "1",
+    email: "admin@ucenin.cl",
+    password: "admin123",
+    name: "Pepe",
+    role: "admin"
+  },
+  {
+    id: "2",
+    email: "user@ucenin.cl",
+    password: "user123",
+    name: "Juan",
+    role: "user"
+  }
+];
 
 const login = async (email: string, password: string): Promise<LoginResponse> => {
   await new Promise((resolve) => setTimeout(resolve, 500)); // Simula latencia
-
-  const mockUsers: MockUser[] = [
-    {
-      id: "1",
-      email: "admin@ucenin.cl",
-      password: "admin123",
-      name: "Administrador",
-      role: "admin"
-    },
-    {
-      id: "2",
-      email: "user@ucenin.cl",
-      password: "user123",
-      name: "Usuario",
-      role: "user"
-    }
-  ];
 
   const user = mockUsers.find(
     (u) => u.email === email && u.password === password
@@ -39,11 +40,36 @@ const login = async (email: string, password: string): Promise<LoginResponse> =>
     throw new Error("Credenciales inválidas");
   }
 
-  // Retornamos solo los campos que están en LoginResponse
   const { password: _, ...userData } = user;
   return userData;
 };
 
+const register = async (
+  name: string,
+  email: string,
+  password: string
+): Promise<LoginResponse> => {
+  await new Promise((resolve) => setTimeout(resolve, 500)); // Simula latencia
+
+  const emailExists = mockUsers.some((u) => u.email === email);
+  if (emailExists) {
+    throw new Error("El correo ya está registrado");
+  }
+
+  const newUser: MockUser = {
+    id: (mockUsers.length + 1).toString(),
+    name,
+    email,
+    password,
+    role: "user"
+  };
+
+  mockUsers.push(newUser);
+  const { password: _, ...userData } = newUser;
+  return userData;
+};
+
 export const authService = {
-  login
+  login,
+  register
 };

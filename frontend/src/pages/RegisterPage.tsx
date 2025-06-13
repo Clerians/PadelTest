@@ -1,4 +1,4 @@
-// src/pages/RegisterPage.tsx
+// src/pages/RegisterPage.tsx ORIGINAL
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/RegisterPage.css";
@@ -25,7 +25,7 @@ const RegisterPage: React.FC = () => {
 
       const data = await response.json();
       if (data.message === "Usuario creado con éxito") {
-        navigate("/login");
+        navigate("/reservas");
       } else {
         setError(data.message);
       }

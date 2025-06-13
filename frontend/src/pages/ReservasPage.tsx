@@ -72,10 +72,10 @@ const isAdmin = userInfo?.role === "admin";
 
         <div className="reservas-content">
           {modo === "reservas" && tabReservas === "activas" && (
-            <div className="reserva-card">Cancha 1, 10 de mayo, 10:30 a 11:30</div>
+            <div className="reserva-card">Cancha 1</div>
           )}
           {modo === "reservas" && tabReservas === "porPagar" && (
-            <div className="reserva-card">Cancha 2, 12 de mayo, 18:00 a 19:00 - $5000 por pagar</div>
+            <div className="reserva-card">Cancha 2 - $5000 por pagar</div>
           )}
           {modo === "reservas" && tabReservas === "porConfirmar" && (
             <div className="reserva-card">Esperando confirmación para Cancha 3</div>

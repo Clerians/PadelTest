@@ -11,7 +11,7 @@ const ReservaModal = ({ onClose }: ReservaModalProps) => {
       <div className="modal-content">
         <h2>Nueva Reserva</h2>
         {/* Puedes agregar aquí los campos de fecha, hora, cancha, etc. */}
-        <p>Formulario para crear una nueva reserva.</p>
+        <p>Crea una nueva reserva.</p>
 
         <button onClick={onClose} className="modal-close-btn">Cerrar</button>
       </div>
