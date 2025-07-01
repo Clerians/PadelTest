@@ -39,7 +39,7 @@ const PerfilPage = () => {
         Cerrar sesión
       </button>
 
-      <BottomNav isAdmin={userInfo.role === "admin"} />
+      <BottomNav/>
     </div>
   );
 };

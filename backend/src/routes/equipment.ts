@@ -1,60 +1,80 @@
-import express, { Request, Response } from "express";
+//equipament.ts
+import express from "express";
 import { pool } from "../utils/db";
-
 const router = express.Router();
 
-// Crear nuevo equipamiento (solo admins deberían poder usar esto idealmente)
-router.post("/add", async (req: Request, res: Response): Promise<void> => {
-  console.log("POST /equipment/add recibido con body:", req.body);
-  const { name, stock, type, cost } = req.body;
+router.post('/create', async (req, res) => {
+    const { name, stock, type, cost } = req.body;
 
-  if (!name || isNaN(Number(stock)) || !type || isNaN(Number(cost))) {
-    res.status(400).json({ message: "Datos inválidos" });
-    return;
-  }
-
-  try {
-    // Paso 1: Verificar si ya existe un equipamiento con ese nombre
-    const checkQuery = 'SELECT stock FROM "Equipment" WHERE name = $1';
-    const checkResult = await pool.query(checkQuery, [name]);
-
-    if (checkResult.rowCount! > 0) {
-      // Ya existe, actualizar stock
-      const existingStock = checkResult.rows[0].stock;
-      const newStock = existingStock + Number(stock);
-
-      const updateQuery = 'UPDATE "Equipment" SET stock = $1 WHERE name = $2';
-      await pool.query(updateQuery, [newStock, name]);
-
-      res.json({ message: "Stock actualizado con éxito", stock: newStock });
-    } else {
-      // No existe, insertar nuevo equipamiento
-      const insertQuery =
-        'INSERT INTO "Equipment" (name, stock, type, cost) VALUES ($1, $2, $3, $4)';
-      await pool.query(insertQuery, [name, Number(stock), type, Number(cost)]);
-
-      res.json({ message: "Equipamiento agregado con éxito" });
+    if (!name || !stock || !type || !cost) {
+        res.status(400).json({
+            message: "Faltan valores para crear el equipamiento."
+        })
+        return
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error al agregar o actualizar el equipamiento" });
-  }
-});
-// Listar todos los equipamientos
-router.get("/all", async (req: Request, res: Response): Promise<void> => {
-  try {
-    const query = 'SELECT * FROM "Equipment" ORDER BY name ASC';
-    const result = await pool.query(query);
 
-    res.json({
-      message: "Lista de equipamientos",
-      data: result.rows,
-    });
-  } catch (error) {
-    console.error("Error al listar equipamientos:", error);
-    res.status(500).json({ message: "Error al obtener los equipamientos" });
-  }
-});
+    await pool.query(`
+        INSERT INTO public."Equipment" (name, stock, type, cost)
+        VALUES ($1, $2, $3, $4); 
+    `, [name, stock, type, cost])
 
+    res.status(201).json({
+        message: "Equipamiento creado correctamente."
+    })
+
+    return
+})
+
+router.get('/all', async (req, res) => {
+    const result = await pool.query(`
+        SELECT * FROM public."Equipment";    
+    `)
+
+    res.status(200).json(result.rows)
+    return
+})
+
+router.put('/update', async (req, res) => {
+    const { id, name, stock, type, cost } = req.body;
+    if (!id || !name || !stock || !type || !cost) {
+        res.status(400).json({
+            message: "Faltan valores para crear el equipamiento."
+        })
+        return
+    }
+
+    await pool.query(`
+        UPDATE public."Equipment"
+        SET 
+            name = $1,
+            stock = $2, 
+            type = $3,
+            cost = $4
+        WHERE id = $5 
+    `, [name, stock, type, cost, id])
+    res.status(200).json({
+        message: 'Equipamiento actualizado correctamente.'
+    })
+
+    return
+})
+
+router.delete('/delete', async (req, res) => {
+    const { id } = req.body;
+    try {
+        await pool.query(`
+            DELETE FROM public."Equipment" WHERE id = $1;
+        `, [id])
+        
+        res.status(200).json({
+            message: "Equipamiento eliminado correctamente."
+        })
+        return
+    } catch (error) {
+        res.status(400).json({
+            message: "No se ha podido eliminar el equipamiento."
+        })
+    }
+})
 
 export default router;

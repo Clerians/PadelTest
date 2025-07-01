@@ -56,6 +56,16 @@ router.post("/login", async (req,res) => {
 
 });
 
+export async function getUserRoleByRut(rut: string): Promise<string | null> {
+    const query = 'SELECT role FROM public."User" WHERE rut = $1';
+    const result = await pool.query(query, [rut]);
+    if (result.rowCount === 0) return null;
+    return result.rows[0].role;
+}
+
+export async function isAdmin(rut: string): Promise<boolean> {
+    const role = await getUserRoleByRut(rut);
+    return role === 'admin';
+}
 
 export default router;
-

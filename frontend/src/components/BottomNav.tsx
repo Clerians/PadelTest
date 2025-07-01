@@ -3,12 +3,11 @@ import { FaHome, FaCalendarCheck, FaUser, FaTools } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import "../styles/BottomNav.css";
 
-interface BottomNavProps {
-  isAdmin?: boolean;
-}
-
-const BottomNav = ({ isAdmin = false }: BottomNavProps) => {
+const BottomNav = () => {
   const navigate = useNavigate();
+
+  const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+  const isAdmin = userInfo?.role === "admin";
 
   return (
     <div className="bottom-nav">
@@ -38,3 +37,5 @@ const BottomNav = ({ isAdmin = false }: BottomNavProps) => {
 };
 
 export default BottomNav;
+
+

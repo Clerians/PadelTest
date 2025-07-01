@@ -1,5 +1,5 @@
+//app.ts
 import express from 'express';
-import equipment from './routes/equipment';
 import auth from './routes/auth';
 import user from './routes/user';
 import cookieParser from 'cookie-parser';
@@ -17,20 +17,10 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
-
-//app.use("/auth", auth);
-app.use("/equipment", equipment); 
-//app.use("/user", user);
+app.use("/auth", auth);
+app.use("/user", user);
 
 
-console.log("✅ Middleware equipment montado");
-
-app.listen(PORT, (err) => {
-  if (err) {
-    console.error(`Failed to start API`)
-    console.error(`${err}`)
-    return;
-  }
-  console.log(`API listening on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
-

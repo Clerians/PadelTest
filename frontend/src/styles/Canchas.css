@@ -1,0 +1,97 @@
+/* src/styles/Canchas.css */
+.container {
+  padding: 1rem;
+}
+
+.titulo {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.form-canchas {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.fila-formulario {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.fila-formulario label {
+  width: 150px; /* ancho fijo para alinear los cuadros */
+  font-weight: bold;
+}
+
+.fila-formulario input,
+.fila-formulario select {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+  padding: 0.5rem;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #005fa3;
+}
+
+.lista-canchas {
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+}
+
+.lista-canchas li {
+  background-color: #f4f4f4;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Estilo para el botón de eliminar */
+.btn-eliminar {
+  padding: 0.3rem 0.6rem;
+  background-color: #cc0000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-eliminar:hover {
+  background-color: #990000;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.mensaje {
+  color: green;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+
+
